@@ -3,8 +3,10 @@ package graphics;
 import java.awt.*;
 
 public class Enemy extends MovableObject{
+    private int hp;
     public Enemy(double x, double y, int width, int height, double maxVelo) {
         super(x, y, width, height, maxVelo);
+        hp = 10;
     }
 
     //todo fix the y
@@ -41,6 +43,14 @@ public class Enemy extends MovableObject{
                 b.moveUp();
             }
         }
+    }
+
+    public void takeDmg(int i){
+        hp -= i;
+    }
+
+    public boolean isDead(){
+        return hp <= 0;
     }
 
     public void drawSelf(Graphics g){

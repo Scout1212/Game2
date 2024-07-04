@@ -91,6 +91,9 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
         processKeys();
         player.applyVelo();
         moveEnemy();
+        actHitboxes();
+
+        checkCollision();
 
         tick++;
 
@@ -218,6 +221,37 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
     public void drawHitboxes(Graphics g){
         for(int i = 0; i < hitBoxes.size(); i++){
             hitBoxes.get(i).drawSelf(g);
+        }
+    }
+
+    public void actHitboxes(){
+        for(int i = 0; i < hitBoxes.size(); i++){
+            if(hitBoxes.get(i).act()) {
+                hitBoxes.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void checkCollision(){
+        //todo fix them not colliding and taking dmg
+        for(int i = 0; i < hitBoxes.size(); i++){
+            for(int j = 0; j < enemies.size(); j++){
+                Enemy temp = enemies.get(j);
+                System.out.println(hitBoxes);
+
+                //todo why is this here
+                if(!hitBoxes.isEmpty()) {
+                    if (hitBoxes.get(i).collideSquare(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight())) {
+                        enemies.get(j).takeDmg(hitBoxes.get(i).getDmg());
+                        if (enemies.get(j).isDead()) {
+                            enemies.remove(j);
+                            j--;
+                        }
+                        hitBoxes.remove(i);
+                    }
+                }
+            }
         }
     }
     public void addEnemy(int a){

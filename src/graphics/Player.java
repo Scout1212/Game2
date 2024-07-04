@@ -9,7 +9,7 @@ public class Player extends MovableObject{
     public Player(double x, double y, int width, int height, double maxVelo) {
         super(x, y, width, height, maxVelo);
         shootTick = -1;
-        cooldown = 200;
+        cooldown = 50;
     }
 
     public void drawSelf(Graphics g){
