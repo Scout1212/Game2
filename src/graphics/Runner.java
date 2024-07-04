@@ -29,6 +29,8 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
         HEIGHT = 500;
         tick = 0;
 
+        //checking pullings
+
         mainBackground = new Background(0, 0, WIDTH*4, HEIGHT);
         player = new Player(1, 1, 100, 100, 10);
 
