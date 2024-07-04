@@ -18,6 +18,8 @@ public class Background{
         this.height = height;
     }
 
+    //spongegar
+
     public void drawSelf(Graphics g){
         g.drawImage(back, (int)x, (int)y, width, height, null);
     }
