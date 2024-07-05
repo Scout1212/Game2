@@ -29,8 +29,6 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
         HEIGHT = 500;
         tick = 0;
 
-        //checking pullings
-
         mainBackground = new Background(0, 0, WIDTH*4, HEIGHT);
         player = new Player(1, 1, 100, 100, 10);
 
@@ -240,18 +238,14 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
         for(int i = 0; i < hitBoxes.size(); i++){
             for(int j = 0; j < enemies.size(); j++){
                 Enemy temp = enemies.get(j);
-                System.out.println(hitBoxes);
-
                 //todo why is this here
-                if(!hitBoxes.isEmpty()) {
-                    if (hitBoxes.get(i).collideSquare(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight())) {
-                        enemies.get(j).takeDmg(hitBoxes.get(i).getDmg());
-                        if (enemies.get(j).isDead()) {
-                            enemies.remove(j);
-                            j--;
-                        }
-                        hitBoxes.remove(i);
+                if(hitBoxes.get(i).collideSquare(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight())) {
+                    enemies.get(j).takeDmg(hitBoxes.get(i).getDmg());
+                    if(enemies.get(j).isDead()){
+                        enemies.remove(j);
+                        j--;
                     }
+                    hitBoxes.remove(i);
                 }
             }
         }
