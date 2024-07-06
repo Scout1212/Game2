@@ -18,7 +18,7 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
     private Background mainBackground;
     private ArrayList<String> keys = new ArrayList<String>();
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private ArrayList<CollidableObject> hitBoxes = new ArrayList<CollidableObject>();
+    private ArrayList<PlayerAttack> hitBoxes = new ArrayList<PlayerAttack>();
     private int tick;
 
     //Default Constructor
@@ -170,7 +170,7 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
             player.resetYVelo();
 
         if(keys.contains("j")){
-            CollidableObject temp  = player.createHit(tick);
+            PlayerAttack temp  = player.createHit(tick);
             if(temp != null){
                 hitBoxes.add(temp);
             }
@@ -234,11 +234,9 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
     }
 
     public void checkCollision(){
-        //todo fix them not colliding and taking dmg
         for(int i = 0; i < hitBoxes.size(); i++){
             for(int j = 0; j < enemies.size(); j++){
                 Enemy temp = enemies.get(j);
-                //todo why is this here
                 if(hitBoxes.get(i).collideSquare(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight())) {
                     enemies.get(j).takeDmg(hitBoxes.get(i).getDmg());
                     if(enemies.get(j).isDead()){
@@ -247,6 +245,9 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
                     }
                     hitBoxes.remove(i);
                 }
+
+                if(hitBoxes.isEmpty())
+                    return;
             }
         }
     }

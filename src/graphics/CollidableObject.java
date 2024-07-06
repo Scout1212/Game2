@@ -7,13 +7,13 @@ public class CollidableObject{
     private int radius;
     private int tickLife, dmg;
 
-    public CollidableObject(double x, double y, int radius){
+    public CollidableObject(double x, double y, int radius, int dmg){
         this.radius = radius;
         //places middle of circle at x and y
         this.x = x - radius/2;
         this.y = y - radius/2;
         tickLife = 10;
-        dmg = 1;
+        this.dmg = dmg;
     }
 
     public boolean collideSquare(double rx, double ry, int rw, int rh){

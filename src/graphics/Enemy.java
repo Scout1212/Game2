@@ -46,6 +46,7 @@ public class Enemy extends MovableObject{
     }
 
     public void takeDmg(int i){
+        System.out.println(hp);
         hp -= i;
     }
 

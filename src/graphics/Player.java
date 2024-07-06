@@ -9,7 +9,7 @@ public class Player extends MovableObject{
     public Player(double x, double y, int width, int height, double maxVelo) {
         super(x, y, width, height, maxVelo);
         shootTick = -1;
-        cooldown = 10;
+        cooldown = 20;
     }
 
     public void drawSelf(Graphics g){
@@ -17,20 +17,21 @@ public class Player extends MovableObject{
         g.fillRect((int)getX(), (int)getY(), getWidth(), getHeight());
     }
 
-    public CollidableObject createHit(int tick){
+    public PlayerAttack createHit(int tick){
         int offset = 100;
         int radius = 50;
+        int dmg = 1;
         if(shootTick < tick){
             shootTick += cooldown;
             switch(getDirection()) {
                 case 0:
-                    return new CollidableObject(getX() + getWidth() / 2, getY() - offset, radius);
+                    return new PlayerAttack(getX() + getWidth() / 2, getY() - offset, radius, dmg);
                 case 1:
-                    return new CollidableObject(getX() + offset + getWidth(), getY() + getHeight() / 2, radius);
+                    return new PlayerAttack(getX() + offset + getWidth(), getY() + getHeight() / 2, radius, dmg);
                 case 2:
-                    return new CollidableObject(getX() + getWidth(), getY() + offset + getHeight(), radius);
+                    return new PlayerAttack(getX() + getWidth(), getY() + offset + getHeight(), radius, dmg);
                 case 3:
-                    return new CollidableObject(getX() - offset, getY() + getHeight() / 2, radius);
+                    return new PlayerAttack(getX() - offset, getY() + getHeight() / 2, radius, dmg);
             }
         }
         return null;
