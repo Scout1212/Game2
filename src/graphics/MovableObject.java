@@ -18,7 +18,7 @@ public class MovableObject{
         this.height = height;
         vx = 0;
         vy = 0;
-        direction = 2;
+        direction = 0;
 
         acceleration = 2;
 
@@ -40,27 +40,25 @@ public class MovableObject{
         else if(vx > -maxVelo){
             vx -= acceleration;
         }
-        direction = 3;
-    }
-
-    public void moveUp(){
-        if(vy + acceleration > -maxVelo){
-            vy -= acceleration;
-        }
-        else if(vy < maxVelo){
-            vy = -maxVelo;
-        }
         direction = 0;
     }
 
-    public void moveDown(){
-        if(vy + acceleration < maxVelo){
-            vy += acceleration;
+    public void moveUp(){
+        if(vy - acceleration < -maxVelo){
+            vy = -maxVelo;
         }
-        else if(vy > maxVelo){
+        else{
+            vy -= acceleration;
+        }
+    }
+
+    public void moveDown(){
+        if(vy + acceleration > maxVelo){
             vy = maxVelo;
         }
-        direction = 2;
+        else{
+            vy += acceleration;
+        }
     }
 
     public void resetXVelo(){
@@ -103,6 +101,12 @@ public class MovableObject{
         return y + height/2;
     }
     public int getDirection(){return direction;}
+    public void addVx(double vx){
+        this.vx += vx;
+    }
+    public void addVy(double vy){
+        this.vy += vy;
+    }
     public void applyVelo(){
         x += vx;
         y += vy;

@@ -45,9 +45,12 @@ public class Enemy extends MovableObject{
         }
     }
 
-    public void takeDmg(int i){
-        System.out.println(hp);
+    public void getHit(int i, double xkb, double ykb){
+        //todo add stuns and smooth out the 3rd hit, so its like it rises in the air then falls down
         hp -= i;
+        addVx(xkb);
+        addVy(ykb);
+        applyVelo();
     }
 
     public boolean isDead(){

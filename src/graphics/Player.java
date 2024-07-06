@@ -3,13 +3,15 @@ package graphics;
 import java.awt.*;
 
 public class Player extends MovableObject{
-    private int cooldown, shootTick;
+    private int cooldown, shootTick, attackSeq, lastTick;
 
 
     public Player(double x, double y, int width, int height, double maxVelo) {
         super(x, y, width, height, maxVelo);
         shootTick = -1;
         cooldown = 20;
+        attackSeq = 0;
+        lastTick = -1;
     }
 
     public void drawSelf(Graphics g){
@@ -17,24 +19,16 @@ public class Player extends MovableObject{
         g.fillRect((int)getX(), (int)getY(), getWidth(), getHeight());
     }
 
-    public PlayerAttack createHit(int tick){
-        int offset = 100;
-        int radius = 50;
-        int dmg = 1;
+    public PlayerAttack createHit(int tick) {
         if(shootTick < tick){
-            shootTick += cooldown;
-            switch(getDirection()) {
-                case 0:
-                    return new PlayerAttack(getX() + getWidth() / 2, getY() - offset, radius, dmg);
-                case 1:
-                    return new PlayerAttack(getX() + offset + getWidth(), getY() + getHeight() / 2, radius, dmg);
-                case 2:
-                    return new PlayerAttack(getX() + getWidth(), getY() + offset + getHeight(), radius, dmg);
-                case 3:
-                    return new PlayerAttack(getX() - offset, getY() + getHeight() / 2, radius, dmg);
-            }
+            attackSeq = (lastTick - tick < cooldown + 10) && (attackSeq < 3)? attackSeq + 1 : 0;
+            int ykb = attackSeq == 3 ? -30 : 0;
+            int xkb = getDirection() == 0 ? -20 : 20;
+            shootTick = tick + cooldown;
+            lastTick = tick;
+            double x = (getDirection() == 0) ? getX() - 100 : getX() + 100 + getWidth();
+            return new PlayerAttack(x, getY() + getHeight() / 2, 50, 1, attackSeq, xkb, ykb);
         }
         return null;
     }
-
 }

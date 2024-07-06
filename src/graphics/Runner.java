@@ -204,9 +204,7 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
         for(int i = 0; i < enemies.size(); i++){
             enemies.get(i).chaseTarget(player.getCenterX(), player.getCenterY());
             for(int b = i + 1; b < enemies.size(); b++) {
-                //enemies.get(i).CollideWithOthers(enemies.get(b));
-                //enemies.get(i).applyVelo();
-                //enemies.get(b).applyVelo();
+                enemies.get(i).CollideWithOthers(enemies.get(b));
             }
             enemies.get(i).applyVelo();
         }
@@ -237,8 +235,9 @@ public class Runner extends JComponent implements KeyListener, MouseListener, Mo
         for(int i = 0; i < hitBoxes.size(); i++){
             for(int j = 0; j < enemies.size(); j++){
                 Enemy temp = enemies.get(j);
-                if(hitBoxes.get(i).collideSquare(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight())) {
-                    enemies.get(j).takeDmg(hitBoxes.get(i).getDmg());
+                if(hitBoxes.get(i).collideSquare(temp.getX(), temp.getY(), temp.getWidth(), temp.getHeight())){
+
+                    enemies.get(j).getHit(hitBoxes.get(i).getDmg(), hitBoxes.get(i).getXkb(), hitBoxes.get(i).getYkb());
                     if(enemies.get(j).isDead()){
                         enemies.remove(j);
                         j--;
